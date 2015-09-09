@@ -1,7 +1,7 @@
 require_relative "person"
 
 class Employee < Person
-  attr_accessor :salary
-                :position
+  attr_accessor :salary,
+                :position,
                 :date_hired
 end

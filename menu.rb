@@ -3,10 +3,8 @@ require_relative "employee"
 require_relative "student"
 
 class Menu
-
   CHOICES = ["a", "s", "d", "q"]
-  PERSON = ["s", "e"]
-
+  people = []
   def display
     begin
       puts "TIY Database: [A]dd, [S]earch, [D]elete, or [Q]uit"
@@ -29,43 +27,43 @@ class Menu
     if person_type == "s"
       puts "Name?"
       student_name = gets.chomp.downcase
-      #{student_name} = Student.new
-      people << #{student_name}
-      #{student_name}.name = gets.chomp.downcase
+      student_name = Student.new
+      people << student_name
+      student_name.name = student_name
         if people.include?(student_name)
           puts "#{name} is already in the database."
         end
       puts "Phone?"
-      #{student_name}.phone = gets.chomp.downcase
+      student_name.phone = gets.chomp
       puts "Address?"
-      #{student_name}.address = gets.chomp.downcase
+      student_name.address = gets.chomp
       puts "Github?"
-      #{student_name}.github = gets.chomp.downcase
+      student_name.github = gets.chomp.downcase
       puts "Slack?"
-      #{student_name}.slack = gets.chomp.downcase
+      student_name.slack = gets.chomp.downcase
     elsif person_type == "e"
       puts "Name?"
       employee_name = gets.chomp.downcase
-      #{employee_name} = Employee.new
-      people << #{employee_name}
-      #{employee_name}.name = gets.chomp.downcase
+      employee_name = Employee.new
+      people << employee_name
+      employee_name.name = employee_name
         if people.include?(student_name)
           puts "#{name} is already in the database."
         end
       puts "Phone?"
-      #{employee_name}.phone = gets.chomp.downcase
+      employee_name.phone = gets.chomp
       puts "Address?"
-      #{employee_name}.address = gets.chomp.downcase
+      employee_name.address = gets.chomp
       puts "Github?"
-      #{employee_name}.github = gets.chomp.downcase
+      employee_name.github = gets.chomp.downcase
       puts "Slack?"
-      #{employee_name}.slack = gets.chomp.downcase
+      employee_name.slack = gets.chomp.downcase
       puts "Salary?"
-      #{employee_name}.salary = gets.chomp.downcase
+      employee_name.salary = gets.chomp
       puts "Position?"
-      #{employee_name}.position = gets.chomp.downcase
+      employee_name.position = gets.chomp.downcase
       puts "Date Hired?"
-      #{employee_name}.date_hired = gets.chomp.downcase
+      employee_name.date_hired = gets.chomp
     else
       puts "Not a valid choice."
     end
@@ -75,7 +73,7 @@ class Menu
     puts "Name to search?"
     search_name = gets.chomp.downcase
       if people.include?(search_name)
-        puts #ATTRIBUTES OF PERSON
+        puts search_name.inspect
       else
         puts "#{search_name} not found in database."
       end
@@ -86,7 +84,7 @@ class Menu
     delete_name = gets.chomp.downcase
       if people.include?(delete_name)
         puts "#{delete_name} will be deleted from database."
-        #DELETE FROM ARRAY
+        people.delete(delete_name)
       else
         puts "#{delete_name} not found in database."
       end
