@@ -8,21 +8,25 @@ class Menu
   def initialize
     @people = []
   end
-  
+
   def display
-    begin
-      puts "TIY Database: [A]dd, [S]earch, [D]elete, or [Q]uit"
-      menu_choice = gets.chomp.downcase
-      if menu_choice == "a"
-        add
-      elsif menu_choice == "s"
-        search
-      elsif menu_choice == "d"
-        delete
-      elsif menu_choice == "q"
-        exit
-      end
-    end  until CHOICES.include?(menu_choice)
+    menu_choice = ""
+    while menu_choice != "q"
+      begin
+        puts "TIY Database: [A]dd, [S]earch, [D]elete, or [Q]uit"
+        menu_choice = gets.chomp.downcase
+        if menu_choice == "a"
+          add
+        elsif menu_choice == "s"
+          search
+        elsif menu_choice == "d"
+          delete
+        elsif menu_choice == "q"
+
+          return
+        end
+      end until CHOICES.include?(menu_choice)
+    end
   end
 
   def add
@@ -40,6 +44,7 @@ class Menu
       student_name.github = gets.chomp.downcase
       puts "Slack?"
       student_name.slack = gets.chomp.downcase
+      puts "#{student_name.name} has been added as a student!"
       @people << student_name
     elsif person_type == "e"
       puts "Name?"
@@ -59,30 +64,38 @@ class Menu
       employee_name.position = gets.chomp.downcase
       puts "Date Hired?"
       employee_name.date_hired = gets.chomp
+      puts "#{employee_name.name} has been added as an employee!"
       @people << employee_name
     else
       puts "Not a valid choice."
+
+      return
     end
   end
 
   def search
     puts "Name to search?"
     search_name = gets.chomp.downcase
-      if people.include?(search_name)
-        puts search_name.inspect
-      else
-        puts "#{search_name} not found in database."
-      end
+    found = @people.find {|person| person.name.include?(search_name)}
+    if found == nil
+      puts "#{search_name} is not in the database"
+    elsif found.is_a?(Student)
+      puts "Name: #{found.name}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}"
+    elsif found.is_a?(Employee)
+      puts "Name: #{found.name}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}\n Salary: #{found.salary}\n Position: #{found.position}, Date Hired: #{found.date_hired}"
+      tenure = (2015 - (found.date_hired.to_i))
+      puts "Has been a #{found.position} for at least #{tenure} years."
+    end
   end
 
   def delete
     puts "Name to delete?"
     delete_name = gets.chomp.downcase
-      if people.include?(delete_name)
-        puts "#{delete_name} will be deleted from database."
-        people.delete(delete_name)
-      else
-        puts "#{delete_name} not found in database."
-      end
+    deleted = @people.find {|person| person.name.include?(delete_name)}
+    if deleted == nil
+      puts "#{delete_name} is not in the database"
+    end
+    @people.delete(deleted)
+    puts "#{delete_name} has been removed from database."
   end
 end
