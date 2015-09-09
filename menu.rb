@@ -36,36 +36,50 @@ class Menu
       puts "Name?"
       student_name = Student.new
       student_name.name = gets.chomp.downcase
-      puts "Phone?"
-      student_name.phone = gets.chomp
-      puts "Address?"
-      student_name.address = gets.chomp
-      puts "Github?"
-      student_name.github = gets.chomp.downcase
-      puts "Slack?"
-      student_name.slack = gets.chomp.downcase
-      puts "#{student_name.name} has been added as a student!"
-      @people << student_name
+      if @people.find {|person| person.name.include?(student_name.name)}
+        puts "Student already exists"
+      else
+        puts "Age?"
+        student_name.age = gets.chomp
+        puts "Phone?"
+        student_name.phone = gets.chomp
+        puts "Address?"
+        student_name.address = gets.chomp
+        puts "Github?"
+        student_name.github = gets.chomp.downcase
+        puts "Slack?"
+        student_name.slack = gets.chomp.downcase
+        puts "Scholarships?"
+        student_name.scholarship = gets.chomp
+        puts "#{student_name.name} has been added as a student!"
+        @people << student_name
+      end
     elsif person_type == "e"
       puts "Name?"
       employee_name = Employee.new
       employee_name.name = gets.chomp.downcase
-      puts "Phone?"
-      employee_name.phone = gets.chomp
-      puts "Address?"
-      employee_name.address = gets.chomp
-      puts "Github?"
-      employee_name.github = gets.chomp.downcase
-      puts "Slack?"
-      employee_name.slack = gets.chomp.downcase
-      puts "Salary?"
-      employee_name.salary = gets.chomp
-      puts "Position?"
-      employee_name.position = gets.chomp.downcase
-      puts "Date Hired?"
-      employee_name.date_hired = gets.chomp
-      puts "#{employee_name.name} has been added as an employee!"
-      @people << employee_name
+      if @people.find {|person| person.name.include?(employee_name.name)}
+        puts "Employee already exists"
+      else
+        puts "Age?"
+        employee_name.age = gets.chomp
+        puts "Phone?"
+        employee_name.phone = gets.chomp
+        puts "Address?"
+        employee_name.address = gets.chomp
+        puts "Github?"
+        employee_name.github = gets.chomp.downcase
+        puts "Slack?"
+        employee_name.slack = gets.chomp.downcase
+        puts "Salary?"
+        employee_name.salary = gets.chomp
+        puts "Position?"
+        employee_name.position = gets.chomp.downcase
+        puts "Date Hired?"
+        employee_name.date_hired = gets.chomp
+        puts "#{employee_name.name} has been added as an employee!"
+        @people << employee_name
+      end
     else
       puts "Not a valid choice."
 
@@ -80,11 +94,10 @@ class Menu
     if found == nil
       puts "#{search_name} is not in the database"
     elsif found.is_a?(Student)
-      puts "Name: #{found.name}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}"
+      puts "Name: #{found.name}\n Age: #{found.age}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}, Scholarhips: #{found.scholarship}"
     elsif found.is_a?(Employee)
-      puts "Name: #{found.name}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}\n Salary: #{found.salary}\n Position: #{found.position}, Date Hired: #{found.date_hired}"
-      tenure = (2015 - (found.date_hired.to_i))
-      puts "Has been a #{found.position} for at least #{tenure} years."
+      puts "Name: #{found.name}\n Age: #{found.age}\n Phone: #{found.phone}\n Address: #{found.address}\n Github: #{found.github}\n Slack: #{found.slack}\n Salary: #{found.salary}\n Position: #{found.position}, Date Hired: #{found.date_hired},\n Tenure: #{found.tenure}"
+      puts "Has been a #{found.position} for at least #{found.tenure} years."
     end
   end
 

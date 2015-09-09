@@ -3,5 +3,6 @@ class Person
                 :phone,
                 :address,
                 :github,
-                :slack
+                :slack,
+                :age
 end
