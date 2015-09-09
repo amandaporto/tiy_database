@@ -1,4 +1,4 @@
-require_relative "person.rb"
+require_relative "person"
 
 class Employee < Person
   attr_accessor :salary
