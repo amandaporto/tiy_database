@@ -4,7 +4,11 @@ require_relative "student"
 
 class Menu
   CHOICES = ["a", "s", "d", "q"]
-  people = []
+
+  def initialize
+    @people = []
+  end
+  
   def display
     begin
       puts "TIY Database: [A]dd, [S]earch, [D]elete, or [Q]uit"
@@ -26,13 +30,8 @@ class Menu
   person_type = gets.chomp.downcase
     if person_type == "s"
       puts "Name?"
-      student_name = gets.chomp.downcase
       student_name = Student.new
-      people << student_name
-      student_name.name = student_name
-        if people.include?(student_name)
-          puts "#{name} is already in the database."
-        end
+      student_name.name = gets.chomp.downcase
       puts "Phone?"
       student_name.phone = gets.chomp
       puts "Address?"
@@ -41,15 +40,11 @@ class Menu
       student_name.github = gets.chomp.downcase
       puts "Slack?"
       student_name.slack = gets.chomp.downcase
+      @people << student_name
     elsif person_type == "e"
       puts "Name?"
-      employee_name = gets.chomp.downcase
       employee_name = Employee.new
-      people << employee_name
-      employee_name.name = employee_name
-        if people.include?(student_name)
-          puts "#{name} is already in the database."
-        end
+      employee_name.name = gets.chomp.downcase
       puts "Phone?"
       employee_name.phone = gets.chomp
       puts "Address?"
@@ -64,6 +59,7 @@ class Menu
       employee_name.position = gets.chomp.downcase
       puts "Date Hired?"
       employee_name.date_hired = gets.chomp
+      @people << employee_name
     else
       puts "Not a valid choice."
     end
