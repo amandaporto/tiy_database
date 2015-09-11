@@ -29,14 +29,19 @@ class Menu
     end
   end
 
+  def find_person_by_name(name)
+    downcase_name = name.downcase
+    @people.find {|person| person.name.downcase.include?(downcase_name)}
+  end
+
   def add
-  puts "[S]tudent or [E]mployee?"
-  person_type = gets.chomp.downcase
+    puts "[S]tudent or [E]mployee?"
+    person_type = gets.chomp.downcase
     if person_type == "s"
       puts "Name?"
       student_name = Student.new
-      student_name.name = gets.chomp.downcase
-      if @people.find {|person| person.name.include?(student_name.name)}
+      student_name.name = gets.chomp
+      if find_person_by_name(student_name.name)
         puts "Student already exists"
       else
         puts "Age?"
@@ -46,9 +51,9 @@ class Menu
         puts "Address?"
         student_name.address = gets.chomp
         puts "Github?"
-        student_name.github = gets.chomp.downcase
+        student_name.github = gets.chomp
         puts "Slack?"
-        student_name.slack = gets.chomp.downcase
+        student_name.slack = gets.chomp
         puts "Scholarships?"
         student_name.scholarship = gets.chomp
         puts "#{student_name.name} has been added as a student!"
@@ -57,8 +62,8 @@ class Menu
     elsif person_type == "e"
       puts "Name?"
       employee_name = Employee.new
-      employee_name.name = gets.chomp.downcase
-      if @people.find {|person| person.name.include?(employee_name.name)}
+      employee_name.name = gets.chomp
+      if find_person_by_name(employee_name.name)
         puts "Employee already exists"
       else
         puts "Age?"
@@ -68,13 +73,13 @@ class Menu
         puts "Address?"
         employee_name.address = gets.chomp
         puts "Github?"
-        employee_name.github = gets.chomp.downcase
+        employee_name.github = gets.chomp
         puts "Slack?"
-        employee_name.slack = gets.chomp.downcase
+        employee_name.slack = gets.chomp
         puts "Salary?"
         employee_name.salary = gets.chomp
         puts "Position?"
-        employee_name.position = gets.chomp.downcase
+        employee_name.position = gets.chomp
         puts "Date Hired?"
         employee_name.date_hired = gets.chomp
         puts "#{employee_name.name} has been added as an employee!"
@@ -89,8 +94,8 @@ class Menu
 
   def search
     puts "Name to search?"
-    search_name = gets.chomp.downcase
-    found = @people.find {|person| person.name.include?(search_name)}
+    search_name = gets.chomp
+    found = find_person_by_name(search_name)
     if found == nil
       puts "#{search_name} is not in the database"
     elsif found.is_a?(Student)
@@ -103,8 +108,8 @@ class Menu
 
   def delete
     puts "Name to delete?"
-    delete_name = gets.chomp.downcase
-    deleted = @people.find {|person| person.name.include?(delete_name)}
+    delete_name = gets.chomp
+    deleted = find_person_by_name(delete_name)
     if deleted == nil
       puts "#{delete_name} is not in the database"
     end
