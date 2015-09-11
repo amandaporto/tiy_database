@@ -29,6 +29,10 @@ class Menu
     end
   end
 
+  def find_person_by_name(name)
+    @people.find {|person| person.name.include?(name)}
+  end
+
   def add
     puts "[S]tudent or [E]mployee?"
     person_type = gets.chomp.downcase
@@ -36,7 +40,7 @@ class Menu
       puts "Name?"
       student_name = Student.new
       student_name.name = gets.chomp.downcase
-      if @people.find {|person| person.name.include?(student_name.name)}
+      if find_person_by_name(student_name.name)
         puts "Student already exists"
       else
         puts "Age?"
@@ -58,7 +62,7 @@ class Menu
       puts "Name?"
       employee_name = Employee.new
       employee_name.name = gets.chomp.downcase
-      if @people.find {|person| person.name.include?(employee_name.name)}
+      if find_person_by_name(employee_name.name)
         puts "Employee already exists"
       else
         puts "Age?"
@@ -90,7 +94,7 @@ class Menu
   def search
     puts "Name to search?"
     search_name = gets.chomp.downcase
-    found = @people.find {|person| person.name.include?(search_name)}
+    found = find_person_by_name(search_name)
     if found == nil
       puts "#{search_name} is not in the database"
     elsif found.is_a?(Student)
@@ -104,7 +108,7 @@ class Menu
   def delete
     puts "Name to delete?"
     delete_name = gets.chomp.downcase
-    deleted = @people.find {|person| person.name.include?(delete_name)}
+    deleted = find_person_by_name(delete_name)
     if deleted == nil
       puts "#{delete_name} is not in the database"
     end
