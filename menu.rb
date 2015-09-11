@@ -30,8 +30,8 @@ class Menu
   end
 
   def add
-  puts "[S]tudent or [E]mployee?"
-  person_type = gets.chomp.downcase
+    puts "[S]tudent or [E]mployee?"
+    person_type = gets.chomp.downcase
     if person_type == "s"
       puts "Name?"
       student_name = Student.new
